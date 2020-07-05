@@ -1,0 +1,7 @@
+{
+  "MK1": {"name":"milk", "price": 4.75},
+  "AP1": {"name":"apples", "price": 6},
+  "CF1": {"name":"coffee", "price": 11.23},
+  "CH1": {"name":"chai", "price": 3.11},
+  "OM1": {"name":"oatmeal", "price": 3.69}
+}

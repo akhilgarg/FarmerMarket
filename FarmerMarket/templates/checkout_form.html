@@ -1,0 +1,43 @@
+<html>
+   <body>
+      <form action = "http://localhost:5000/" method = "post">
+         <p>Checkout Window</p>
+          <!--
+          <p>Coffee <input type="number" name="coffee_qty" step="1", min="0" value={{result['coffee_qty']}} /></p>
+          <p>Milk <input type="number" name="milk_qty" step="1", min="0" value={{result['milk_qty']}} /></p>
+          -->
+          <table border="1">
+              {% for item_code in item_price %}
+              <tr>
+                  <td>{{item_code}}</td>
+                  <td>{{item_price[item_code]["name"]}}</td>
+                  <td>$ {{item_price[item_code]["price"]}}</td>
+                  <td><input type="number" name='{{item_code}}' step="1", min="0" value="{{result[item_code]}}" required/></td>
+              </tr>
+
+              {% endfor %}
+          </table>
+         <p><input type = "submit" value = "Cal. Bill" /></p>
+      </form>
+
+      <table border = 1>
+          {% if bill_data %}
+          <tr>
+              <th>Item</th><th>Promo</th><th>Price</th>
+          </tr>
+    {% for i in bill_data["item_details"] %}
+          <tr>
+              <td>{{i['item']}}</td>
+              <td>{{i['promo']}}</td>
+              <td>$ {{i['price']}}</td>
+          </tr>
+   {% endfor %}
+          <tr>
+              <td>Total</td>
+              <td> -- </td>
+              <td>{{bill_data["total"]}}</td>
+          </tr>
+          {% endif %}
+      </table>
+   </body>
+</html>
