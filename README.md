@@ -1,10 +1,16 @@
-# FarmerMarket
-Farmer market checkout system
+# FarmerMarket Checkout System
+The application is a web based solution opened at http://<IP>:5000/
 
-# steps to start the application
-Go to directory having checkout.py and then run
-python checkout.py
+# Use application Using Dockerfile
+cd FarmerMarket
+docker docker build . -t farmer_image
+docker run  --net=host  -p 5000:5000 --name farmer_image_container farmer_image
 
-# The items in grocery store along with prices can be added in json file in the code and UI will display automatically them.
+# Steps to start the application using code base:
+git clone codebase
+cd FarmerMarket/FarmerMarket
+python3 checkout.py
 
-# start application through Docker file as below:
+# Note
+The items in grocery store along with prices can be added in json file in the code and UI will display automatically them.
+
