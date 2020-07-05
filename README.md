@@ -1,5 +1,5 @@
 ### FarmerMarket Checkout System
-##### The application is a web based solution opened at http://<IP>:5000/
+##### The application is a web based solution opened at http://x.x.x.x:5000/
 
 ### Use application Using Dockerfile
 ##### cd FarmerMarket
