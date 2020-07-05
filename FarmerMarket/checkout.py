@@ -23,7 +23,7 @@ def get_bill_data(result):
     example:  {"item_details": [{"item":"milk", "promo": "APPL", "price": 234}], "total": 500}
     """
     bill_data = {"item_details": [], "total": 0}
-    items_covered_qty = {}
+
     for item_code, item_qty in result.items():
         if discount_dict.get(item_code):
             promo = discount_dict[item_code]
@@ -35,7 +35,9 @@ def get_bill_data(result):
 
             elif promo == 'CHMK':
                 bill_data["item_details"].append({"item": "CH1", "price": 3.11})
-                bill_data["item_details"].append({"item": "MK1", "price": 4.75})
+                # if milk already selected by buyer then don't give extra. However give it free but only one.
+                if not result.get("MK1"):
+                    bill_data["item_details"].append({"item": "MK1", "price": 4.75})
                 bill_data["item_details"].append({"promo": "CHMK", "price": -4.75})
                 # as limit is 1 so no promo for more than one qty
                 for i in range(item_qty-1):
@@ -44,7 +46,7 @@ def get_bill_data(result):
                 for i in range(item_qty):
                     bill_data["item_details"].append({"item": "OM1", "price": 3.69})
                     # for less than 3 apples bag this offers appplicable for 50% discount otherwise price discount of 1.50 already applied.
-                    if items_covered_qty.get("AP1") and items_covered_qty["AP1"] < 3 and (i+1) <= items_covered_qty["AP1"]:
+                    if result.get("AP1") and result["AP1"] < 3 and (i+1) <= result["AP1"]:
                         bill_data["item_details"].append({"promo": "APOM", "price": -3.00})
             elif promo == "BOGO":
                 for i in range(item_qty):
@@ -55,7 +57,6 @@ def get_bill_data(result):
             for i in range(item_qty):
                 bill_data["item_details"].append({"item": item_code, "price": item_price[item_code]["price"]})
 
-        items_covered_qty.update({item_code: item_qty})
 
     # calculate the total prices
     for bd in  bill_data["item_details"]:
